@@ -1,6 +1,7 @@
-//Homepage
-import HomePage from "../screens/home"
+import CardName from "../components/card/nameCard"
+import Page from "../components/card/homepage"
 
 export const routes = [
-  {path: "/homepage", Component: HomePage}
+  {path: "/:slug", Component: CardName},
+  {path: "/", Component: Page},
 ]
