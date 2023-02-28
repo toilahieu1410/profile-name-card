@@ -1,72 +1,181 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from 'react-router-dom'
-import { getNameCard } from '../../redux/nameCard/action'
-import FooterCard from '../footer'
+import { useParams, Outlet } from 'react-router-dom'
+import { BiBuildingHouse } from "react-icons/bi";
 
+import QRCode from 'react-qr-code'
+import LogoGiga from '../../assets/img/logo-giga.png'
+import { getNameCard, getNewBySlug } from '../../redux/nameCard/action'
+import LogoHopLong from '../../assets/img/logo-hoplong-white.png'
+import { checkImage } from '../../utilities/checkImage';
 const Page = () => {
 
   const dispatch = useDispatch()
 
-
   // const slug = window.location.pathname.replace('/', '')
+
+  const slug = useParams()
   const listNameCard = useSelector((store) => store.nameCard.listNameCard)
 
   const [urlWeb, setUrlWeb] = useState('https://gigadigital.vn')
-  const Image = 'https://d957deb01da62e9b1e12-b8ef2f71c2d7eada5aab3537be8551cd.ssl.cf3.rackcdn.com/templates/861821/Banner_61f16394164db9.58841041.jpg'
+  const [name, setName] = useState(null)
+  const [email, setEmail] = useState(null)
+  const [subject, setSubject] = useState(null)
+  const [message, setMessage] = useState(null)
+
+  useEffect(() => {
+    dispatch(getNameCard(slug.slug))
+  }, [slug])
+
+  //download img QRCode
+  const download = () => {
+    const svg = document.getElementById('QRCode')
+    const svgData = new XMLSerializer().serializeToString(svg)
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    const img = new Image()
+    img.onload = () => {
+      canvas.width = img.width
+      canvas.height = img.height
+      ctx.drawImage(img, 0, 0)
+      const pngFile = canvas.toDataURL('image/png')
+      const downloadLink = document.createElement('a')
+      downloadLink.download = 'gigaDigital'
+      downloadLink.href = `${pngFile}`
+      downloadLink.click()
+    }
+    img.src = `data:image/svg+xml;base64,${btoa(svgData)}`
+  }
 
   return (
     <div className='section-about'>
-      <header className='header position-relative'>
-        <div className='header-bg position-absolute top-0'>
-          <div className=''>
+    <header className='header position-relative'>
+      <div className='header-bg position-absolute top-0'>
+        <div className=''>
 
-          </div>
         </div>
-        <div className='header-tab-bar w-100'>
-          <div className='col-md-12 text-center'>
-            <img src={Image} className='w-100' />
-          </div>
+      </div>
+      <div className='header-tab-bar w-100'>
+        <div className='col-md-12 text-center mt-3'>
+          <img src={LogoHopLong} className='w-15 position-relative' />
         </div>
-      </header>
-      <section className='section-content'>
-        <div className='container'>
-          <div className='about-info bg-white'>
-            <div className='p-4 section-box'>
-              <div className='row'>
-                <div className='col-sm-5'>
-                  <div className='profile-user'>
-                    <img src={listNameCard.avatar} className='w-100' />
+      </div>
+    </header>
+    <section className='section-content'>
+      <div className='container'>
+        <div className='about-info bg-white'>
+          <div className='p-4 section-box'>
+            <div className='row'>
+              <div className='col-sm-5'>
+                <div className='profile-user'>
+                  <img src={checkImage(listNameCard.avatar)} className='w-100 position-relative' />
+                </div>
+              </div>
+              <div className='col-sm-7 pb-3'>
+                <div className='profile-info-user'>
+                  <div className='profile-hello'>
+                    <span>Xin chào</span>
+                  </div>
+                  <div className='profile-username mt-4'>
+                    <h3 className='mb-1'>Tôi là <span className='fw-bold'>{listNameCard.name}</span></h3>
+                  </div>
+                  <div className='profile-job'>
+                    <p className='mb-0'>{listNameCard.jobTitle}</p>
                   </div>
                 </div>
-                <div className='col-sm-7 pb-3'>
-                  <div className='profile-info-user'>
-                    <div className='profile-hello'>
-                      <span>Xin chào</span>
+                <div className='vertical-line'>
+                </div>
+                <div className='profile-list-user '>
+                  <ul className='list-unstyled'>
+                    <li><strong>Tuổi</strong><span>29</span></li>
+                    <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
+                    <li><strong>Email</strong><span>{listNameCard.mailingAddress}</span></li>
+                    <li><strong>Phone</strong><span>{listNameCard.phone1}  {listNameCard.phone2}</span></li>
+                    <li><strong>Facebook</strong><span>{listNameCard.facebook}</span></li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <div className='profile-social'>
+            <ul className='list-unstyled d-flex mb-0 justify-content-center'>
+              <li><a href='#' className='text-white'><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+              <li><a href='#' className='text-white'><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+              <li><a href='#' className='text-white'><i class="fab fa-dribbble" aria-hidden="true"></i></a></li>
+              <li><a href='#' className='text-white'><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+              <li><a href='#' className='text-white'><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+              <li><a href='#' className='text-white'><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <div className='section-contact mt-4'>
+          <div className='col-md-12'>
+            <div className='row'>
+              <div className='col-md-6'>
+                <div className='section-box'>
+                  <h3 className='mb-4'>Gửi ý kiến của bạn</h3>
+                  <form className='contact-form' method='post'>
+                    <div className='input-form form-group'>
+                      <input className='form-control' value={name} type={'text'} name='name' onChange={(e) => setName(e.target.value)} />
+                      <label className={name && 'filled'} htmlFor='name'>Name</label>
                     </div>
-                    <div className='profile-username'>
-                      <h3>Tôi là: <span className='fw-bold'>{listNameCard.name}</span></h3>
+                    <div className='input-form form-group'>
+                      <input className='form-control' type={'text'} name='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                      <label className={email && 'filled'} htmlFor='email'>Email</label>
                     </div>
-                    <div className='profile-job'>
-                      <p className='mb-0'>{listNameCard.jobTitle}</p>
+                    <div className='input-form form-group'>
+                      <input className='form-control' type={'text'} name='name' value={subject} onChange={(e) => setSubject(e.target.value)} />
+                      <label className={subject && 'filled'}>Subject</label>
                     </div>
-                  </div>
-                  <div className='profile-list-user pt-3'>
-                    <ul className='list-unstyled'>
-                      <li><strong>Tuổi</strong><span>29</span></li>
-                      <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
-                      <li><strong>Email</strong><span>{listNameCard.mailingAddress}</span></li>
-                      <li><strong>Phone</strong><span>{listNameCard.phone1}  {listNameCard.phone2}</span></li>
-                      <li><strong>Facebook</strong><span>{listNameCard.facebook}</span></li>
-                    </ul>
-                  </div>
+                    <div className='input-form form-group'>
+                      <textarea className='form-control' type={'text'} name='name' value={message} onChange={(e) => setMessage(e.target.value)} rows='3'></textarea>
+                      <label className={message && 'filled'}>Message</label>
+                    </div>
+                    <div className='input-form-check form-group'>
+                      <input type={'checkbox'} />
+                      <label className='col-form-label ml-10'>Tôi đã đọc chính sách</label>
+                    </div>
+                    <div className='button text-left mt-3'>
+                      <button type='button' className='btn btn-primary'>Gửi</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div className='col-md-6'>
+                <div className='section-box'>
+                  <h3 className='mb-4'>Thông tin liên hệ</h3>
+                  <ul className='list-unstyled list-contact'>
+                    <li className='mb-3'>
+                      <strong>Email</strong>
+                      <a href='#'>{listNameCard.mailingAddress}</a>
+                    </li>
+                    <li className='mb-3'>
+                      <strong>Phone1</strong>
+                      <span>{listNameCard.phone1}</span>
+                    </li>
+                    <li className='mb-3'>
+                      <strong>Phone2</strong>
+                      <span>{listNameCard.phone2}</span>
+                    </li>
+                    <li className='mb-3'>
+                      <strong>Facebook</strong>
+                      <a href='#'>{listNameCard.facebook}</a>
+                    </li>
+                    <li className='mb-3'>
+                      <strong>Address</strong>
+                      <span>{listNameCard.streetAddress}</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+  </div>
 
     // <div className='section-about'>
     //   <div className='container'>
