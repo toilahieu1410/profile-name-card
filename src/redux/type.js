@@ -1,0 +1,1 @@
+export const GET_NAMECARD = 'GET_NAMECARD'
