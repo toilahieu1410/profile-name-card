@@ -9,6 +9,7 @@ import { getNameCard, getNewBySlug } from '../../redux/nameCard/action'
 import FooterCard from '../footer';
 import LogoHopLong from '../../assets/img/logo-hoplong-white.png'
 import { checkImage } from '../../utilities/checkImage';
+import moment from 'moment/moment';
 const CardName = () => {
 
   const dispatch = useDispatch()
@@ -28,7 +29,10 @@ const CardName = () => {
     dispatch(getNameCard(slug.slug))
   }, [slug])
 
-  console.log(listNameCard, 'listNameCard', slug)
+  const date2 = new Date(listNameCard.birthday);
+  const ageInMilliseconds = Date.now() - date2.getTime() ;
+  const ageInYears = ageInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
+
   //download img QRCode
   const download = () => {
     const svg = document.getElementById('QRCode')
@@ -49,6 +53,7 @@ const CardName = () => {
     img.src = `data:image/svg+xml;base64,${btoa(svgData)}`
   }
 
+  console.log(listNameCard, 'listNameCard', listNameCard.birthday)
   return (
     <div className='section-about'>
       <header className='header position-relative'>
@@ -58,7 +63,7 @@ const CardName = () => {
           </div>
         </div>
         <div className='header-tab-bar w-100'>
-          <div className='col-md-12 text-center mt-3'>
+          <div className='col-md-12 text-center pt-3'>
             <img src={LogoHopLong} className='w-15 position-relative' />
           </div>
         </div>
@@ -79,7 +84,10 @@ const CardName = () => {
                       <span>Xin chào</span>
                     </div>
                     <div className='profile-username mt-4'>
-                      <h3 className='mb-1'>Tôi là <span className='fw-bold'>{listNameCard.name}</span></h3>
+                      <h3 className='mb-1'> <span className='fw-bold'>{listNameCard.name}</span></h3>
+                    </div>
+                    <div className='profile-job'>
+                      <p className='mb-0'>{listNameCard.subname == null ? '' : '(' + listNameCard.subname + ')'} </p>
                     </div>
                     <div className='profile-job'>
                       <p className='mb-0'>{listNameCard.jobTitle}</p>
@@ -89,7 +97,7 @@ const CardName = () => {
                   </div>
                   <div className='profile-list-user '>
                     <ul className='list-unstyled'>
-                      <li><strong>Tuổi</strong><span>29</span></li>
+                      <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li>
                       <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
                       <li><strong>Email</strong><span>{listNameCard.mailingAddress}</span></li>
                       <li><strong>Phone</strong><span>{listNameCard.phone1}  {listNameCard.phone2}</span></li>
@@ -117,6 +125,37 @@ const CardName = () => {
               <div className='row'>
                 <div className='col-md-6'>
                   <div className='section-box'>
+                    <h3 className='mb-4'>Thông tin liên hệ</h3>
+                    <ul className='list-unstyled list-contact'>
+                      <li className='mb-3'>
+                        <strong>Email</strong>
+                        <a href={`mailto:${listNameCard.mailingAddress}`}>{listNameCard.mailingAddress}</a>
+                      </li>
+                      <li className='mb-3'>
+                        <strong>Phone1</strong>
+                        <span>{listNameCard.phone1}</span>
+                      </li>
+                      <li className='mb-3'>
+                        <strong>Phone2</strong>
+                        <span>{listNameCard.phone2}</span>
+                      </li>
+                      <li className='mb-3'>
+                        <strong>Facebook</strong>
+                        <a href='#'>{listNameCard.facebook}</a>
+                      </li>
+                      <li className='mb-3'>
+                        <strong>Address</strong>
+                        <span>{listNameCard.streetAddress}</span>
+                      </li>
+                      <li>
+                        <strong>Trực thuộc</strong>
+                        <span>{listNameCard.company === 'hoplong' ? 'Hợp Long' : 'Giga Digital'}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className='col-md-6'>
+                  <div className='section-box'>
                     <h3 className='mb-4'>Gửi ý kiến của bạn</h3>
                     <form className='contact-form' method='post'>
                       <div className='input-form form-group'>
@@ -139,39 +178,13 @@ const CardName = () => {
                         <input type={'checkbox'} />
                         <label className='col-form-label ml-10'>Tôi đã đọc chính sách</label>
                       </div>
-                      <div className='button text-left mt-3'>
+                      {/* <div className='button text-left mt-3'>
                         <button type='button' className='btn btn-primary'>Gửi</button>
-                      </div>
+                      </div> */}
                     </form>
                   </div>
                 </div>
-                <div className='col-md-6'>
-                  <div className='section-box'>
-                    <h3 className='mb-4'>Thông tin liên hệ</h3>
-                    <ul className='list-unstyled list-contact'>
-                      <li className='mb-3'>
-                        <strong>Email</strong>
-                        <a href='#'>{listNameCard.mailingAddress}</a>
-                      </li>
-                      <li className='mb-3'>
-                        <strong>Phone1</strong>
-                        <span>{listNameCard.phone1}</span>
-                      </li>
-                      <li className='mb-3'>
-                        <strong>Phone2</strong>
-                        <span>{listNameCard.phone2}</span>
-                      </li>
-                      <li className='mb-3'>
-                        <strong>Facebook</strong>
-                        <a href='#'>{listNameCard.facebook}</a>
-                      </li>
-                      <li className='mb-3'>
-                        <strong>Address</strong>
-                        <span>{listNameCard.streetAddress}</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>
