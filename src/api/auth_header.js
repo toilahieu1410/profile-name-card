@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const API_SERVER = 'http://192.168.83.125:8009/v1'
+export const API_SERVER = 'https://nodejshoplong.hoplong.com/v1'
 
 const authHeader = () => {
 

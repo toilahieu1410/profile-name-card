@@ -6,13 +6,13 @@ import { BiBuildingHouse } from "react-icons/bi";
 import QRCode from 'react-qr-code'
 import LogoGiga from '../../assets/img/logo-giga.png'
 import { getNameCard, getNewBySlug } from '../../redux/nameCard/action'
+import FooterCard from '../footer';
 import LogoHopLong from '../../assets/img/logo-hoplong-white.png'
 import { checkImage } from '../../utilities/checkImage';
+
 const Page = () => {
 
   const dispatch = useDispatch()
-
-  // const slug = window.location.pathname.replace('/', '')
 
   const slug = useParams()
   const listNameCard = useSelector((store) => store.nameCard.listNameCard)
@@ -23,29 +23,8 @@ const Page = () => {
   const [subject, setSubject] = useState(null)
   const [message, setMessage] = useState(null)
 
-  useEffect(() => {
-    dispatch(getNameCard(slug.slug))
-  }, [slug])
 
-  //download img QRCode
-  const download = () => {
-    const svg = document.getElementById('QRCode')
-    const svgData = new XMLSerializer().serializeToString(svg)
-    const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')
-    const img = new Image()
-    img.onload = () => {
-      canvas.width = img.width
-      canvas.height = img.height
-      ctx.drawImage(img, 0, 0)
-      const pngFile = canvas.toDataURL('image/png')
-      const downloadLink = document.createElement('a')
-      downloadLink.download = 'gigaDigital'
-      downloadLink.href = `${pngFile}`
-      downloadLink.click()
-    }
-    img.src = `data:image/svg+xml;base64,${btoa(svgData)}`
-  }
+
 
   return (
     <div className='section-about'>
@@ -56,7 +35,7 @@ const Page = () => {
         </div>
       </div>
       <div className='header-tab-bar w-100'>
-        <div className='col-md-12 text-center mt-3'>
+        <div className='col-md-12 text-center pt-3'>
           <img src={LogoHopLong} className='w-15 position-relative' />
         </div>
       </div>
@@ -149,7 +128,7 @@ const Page = () => {
                   <ul className='list-unstyled list-contact'>
                     <li className='mb-3'>
                       <strong>Email</strong>
-                      <a href='#'>{listNameCard.mailingAddress}</a>
+                      <a href={`mailto:${listNameCard.mailingAddress}`}>{listNameCard.mailingAddress}</a>
                     </li>
                     <li className='mb-3'>
                       <strong>Phone1</strong>
@@ -176,223 +155,6 @@ const Page = () => {
       </div>
     </section>
   </div>
-
-    // <div className='section-about'>
-    //   <div className='container'>
-    //     <div className='row'>
-    //       <div className='col-md-12'>
-    //         <div className='title-wrapper text-center'>
-    //           <strong>{'Thông tin cá nhân'}</strong>
-    //         </div>
-    //         <div className='title-wrapper-child text-center'>
-    //           <h2>{'Thông tin cá nhân'}</h2>
-    //           <h4 className='mt-3'><strong><span className='text-primary'>{listNameCard.department}</span> / {listNameCard.jobTitle}</strong></h4>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div className='row content-detail'>
-    //       <div className='col-md-4 pl-0'>
-    //         <div className='image-avatar'>
-    //           <img src={Image} alt={'logo'} className='w-100' />
-    //         </div>
-    //       </div>
-    //       <div className='col-md-8'>
-    //         <div className='information'>
-    //           <div className='row'>
-    //             <div className='col-6'>
-    //               <ul className='list-unstyled'>
-    //                 <li>
-    //                   <p>Công ty: <span>{ }</span></p>
-    //                 </li>
-    //                 <li>
-    //                   <p className=''>Trực thuộc: <span>{ }</span></p>
-    //                 </li>
-    //                 <li>
-    //                   <p className=''>Số điện thoại: <span>{ }</span></p>
-    //                 </li>
-    //                 {/* {listNameCard.phone2 != null && (
-    //                   <li>
-    //                     <p className=''> <span>{listNameCard.phone2}</span></p>
-    //                   </li>
-    //                 )} */}
-    //                 <li>
-    //                   <p>Địa chỉ: <span>{ }</span></p>
-    //                 </li>
-    //               </ul>
-    //             </div>
-    //             <div className='col-6'>
-    //               <ul className='list-unstyled'>
-    //                 <li>
-    //                   <p className=''>Website: <span><a className='text-decoration-none text-black'>{listNameCard.website}</a></span></p>
-    //                 </li>
-    //                 <li>
-    //                   <p className=''>Facebook: <span><a className='text-decoration-none text-black'>{listNameCard.facebook}</a></span></p>
-    //                 </li>
-    //                 <li>
-    //                   <p className=''>Youtube: <span><a className='text-decoration-none text-black'>{listNameCard.youtube}</a></span></p>
-    //                 </li>
-    //               </ul>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div className='row'>
-    //       <div className='footer mt-3'>
-    //         <FooterCard listNameCard={listNameCard} />
-    //       </div>
-    //     </div>
-
-    //   </div>
-    //   <div className='info-card'>
-    //     {/* <div className='d-flex align-items-center'>
-    //       <div className='info-left'>
-    //         <div className='dashboard-content-top'>
-    //           <div className='img-banner'>
-    //             <figure className='figure'>
-    //               <img className='img-fluid' alt="logo" src={Image} height={300} />
-    //             </figure>
-    //           </div>
-
-    //           <div className='card-content'>
-    //             <div className='card-title'>
-    //               <h4 className='card-name'>Nguyen Minh Hieu</h4>
-    //               <p className='mb-0'>Lap trinh vien</p>
-    //             </div>
-    //           </div>
-    //         </div>
-    //         <div className='dashboard-content-bottom'>
-    //           <div className='list-items'>
-    //             <div className='d-flex align-items-center'>
-    //               <span className='mr-10'><BiBuildingHouse size={30} className='text-black' /></span>
-    //               <div className='list-item-text border-bottom-1'>
-    //                 <h6 className='mb-0'> {listNameCard.companyName} </h6>
-    //                 <p className='fw-bold mb-0'>Company</p>
-    //               </div>
-    //             </div>
-    //           </div>
-    //           <div className='list-items'>
-    //             <div className='d-flex align-items-center'>
-    //               <span className='mr-10'><BiBuildingHouse size={30} className='text-black' /></span>
-    //               <div className='list-item-text border-bottom-1'>
-    //                 <h6 className='mb-0'> {listNameCard.jobTitle} </h6>
-    //                 <p className='fw-bold mb-0'>Job Title</p>
-    //               </div>
-    //             </div>
-    //           </div>
-    //           <div className='list-items'>
-    //             <div className='d-flex align-items-center'>
-    //               <span className='mr-10'><BiBuildingHouse size={30} className='text-black' /></span>
-    //               <div className='list-item-text border-bottom-1'>
-    //                 <h6 className='mb-0'> {listNameCard.department}</h6>
-    //                 <p className='fw-bold mb-0'>Department</p>
-    //               </div>
-    //             </div>
-    //           </div>
-    //           <div className='list-items'>
-    //             <div className='d-flex align-items-center'>
-    //               <span className='mr-10'><BiBuildingHouse size={30} className='text-black' /></span>
-    //               <div className='list-item-text border-bottom-1'>
-    //                 <h6 className='mb-0'>{listNameCard.phone1} </h6>
-    //                 <p className='fw-bold mb-0'>Mobile</p>
-    //               </div>
-    //             </div>
-    //           </div>
-    //           <div className='list-items'>
-    //             <div className='d-flex align-items-center'>
-    //               <span className='mr-10'><BiBuildingHouse size={30} className='text-black' /></span>
-    //               <div className='list-item-text border-bottom-1'>
-    //                 <h6 className='mb-0'> {listNameCard.phone2} </h6>
-    //                 <p className='fw-bold mb-0'>Phone</p>
-    //               </div>
-    //             </div>
-    //           </div>
-    //           <div className='list-items'>
-    //             <div className='d-flex align-items-center'>
-    //               <span className='mr-10'><BiBuildingHouse size={30} className='text-black' /></span>
-    //               <div className='list-item-text border-bottom-1'>
-    //                 <h6 className='mb-0'> {listNameCard.mailingAddress}</h6>
-    //                 <p className='fw-bold mb-0'>Email</p>
-    //               </div>
-    //             </div>
-    //           </div>
-    //           <div className='list-items'>
-    //             <div className='d-flex align-items-center'>
-    //               <span className='mr-10'><BiBuildingHouse size={30} className='text-black' /></span>
-    //               <div className='list-item-text border-bottom-1'>
-    //                 <h6 className='mb-0'> {listNameCard.website} </h6>
-    //                 <p className='fw-bold mb-0'>Website</p>
-    //               </div>
-    //             </div>
-    //           </div>
-    //           <div className='list-items'>
-    //             <div className='d-flex align-items-center'>
-    //               <span className='mr-10'><BiBuildingHouse size={30} className='text-black' /></span>
-    //               <div className='list-item-text border-bottom-1'>
-    //                 <h6 className='mb-0'> {listNameCard.streetAddress} </h6>
-    //                 <p className='fw-bold mb-0'>Street Address</p>
-    //               </div>
-    //             </div>
-    //           </div>
-    //           <div className='list-items'>
-    //             <div className='d-flex align-items-center'>
-    //               <span className='mr-10'><BiBuildingHouse size={30} className='text-black' /></span>
-    //               <div className='list-item-text border-bottom-1'>
-    //                 <h6 className='mb-0'> {listNameCard.facebook} </h6>
-    //                 <p className='fw-bold mb-0'>Facebook</p>
-    //               </div>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-
-    //       <div className='info-right'>
-
-    //       </div>
-    //     </div> */}
-
-
-    //     {/* <div className='d-inline-block w-100 h-100 position-relative'>
-    //       <div className='name-card'>
-    //         <div className='top'></div>
-    //         <div className='middle'>
-    //           <div className='inner-middle mt-3'>
-    //             <div className='d-flex align-items-top justify-content-between position-relative'>
-    //               <div className='left' style={{ flex: 3 }}>
-    //                 <h4 className='title-name-card  mb-0'>{data.name}</h4>
-    //                 <h6 className='job'>{data.job}</h6>
-    //                 <div className='mt-3 position-absolute info'>
-    //                   <h5 className='title-name-card mb-3'>{data.company} </h5>
-    //                   <p className='mb-1'>Tầng 3 - tòa HH01A - 87 Lĩnh Nam</p>
-    //                   <p className='mb-1'>SĐT: {data.phone}</p>
-    //                   <p className='mb-1 text-white'>{data.address}</p>
-    //                   <p className='mb-1 text-white'>https://gigadigital.vn</p>
-    //                 </div>
-    //               </div>
-    //               <div className='right' style={{ flex: 2 }}>
-    //                 <img src={LogoGiga} className='w-100' />
-    //               </div>
-    //             </div>
-    //           </div>
-    //           <div className='qr-code'>
-    //             <QRCode
-    //               size={100}
-    //               value={urlWeb}
-    //               viewBox={`0 0 256 256`}
-    //               id='QRCode'
-    //             />
-    //           </div>
-    //         </div>
-    //         <div className='bottom'>
-    //           <div className='inner-bottom'></div>
-    //         </div>
-    //       </div>
-    //       <div className='list-button'>
-    //         <input type={'button'} className='btn btn-success' value={'download'} onClick={download} />
-    //       </div>
-    //     </div> */}
-    //   </div>
-    // </div>
 
 
   )
