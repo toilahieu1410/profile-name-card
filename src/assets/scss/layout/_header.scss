@@ -1,0 +1,26 @@
+.homepage {
+  .header-top {
+    background-color: #ccc;
+    .list-header {
+      ul {
+        li {
+          .username {
+            position: relative;
+            .menu-user {
+              display: none;
+              position: absolute;
+            }
+          }
+          &:hover .menu-user {
+            position: absolute;
+            display: block;
+            z-index: 10;
+            width: 300px;
+            background: #fff;
+          }
+        }
+      }
+    }
+
+  }
+}
