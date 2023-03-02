@@ -111,12 +111,12 @@ const CardName = () => {
             </div>
             <div className='profile-social'>
               <ul className='list-unstyled d-flex mb-0 justify-content-center'>
-                <li><a href='#' className='text-white'><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i class="fab fa-dribbble" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-dribbble" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-google-plus" aria-hidden="true"></i></a></li>
               </ul>
             </div>
           </div>
@@ -129,7 +129,7 @@ const CardName = () => {
                     <ul className='list-unstyled list-contact'>
                       <li className='mb-3'>
                         <strong>Email</strong>
-                        <a href={`mailto:${listNameCard.mailingAddress}`}>{listNameCard.mailingAddress}</a>
+                        <a href={`mailto:${listNameCard.mailingAddress}`} className='text-decoration-none'>{listNameCard.mailingAddress}</a>
                       </li>
                       <li className='mb-3'>
                         <strong>Phone1</strong>

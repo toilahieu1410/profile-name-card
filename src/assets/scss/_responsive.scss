@@ -34,7 +34,42 @@
   }
   
 }
-
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .homepage {
+    .banner-image {
+      min-height: 300px !important;
+      position: relative;
+      left: 0;
+      background-size: cover;
+      right: 0;
+      z-index: 1;
+  
+  }
+  .introduction {
+    .section {
+      .col-md-6 {
+        width: 100%;
+      }
+      .choose-item {
+        i {
+          width: 50px !important;
+          height: 50px !important;
+          line-height: 50px !important;
+          font-size: 20px !important;
+        }
+      }
+      .choose-item-detail {
+        i {
+          width: 50px !important;
+          height: 50px !important;
+          line-height: 50px !important;
+          font-size: 20px !important;
+        }
+      }
+    }
+  }
+  } 
+}
 @media screen and (max-width: 767px) {
   .section-about {
     .header-tab-bar {
@@ -73,10 +108,86 @@
       }
     }
   }
+  .homepage {
+    .navbar-toggler {
+      box-shadow: none;
+    }
+    .navbar-collapse {
+      position: absolute;
+      top: 47px;
+      z-index: 9;
+      width: 100%;
+      background: rgb(255, 255, 255);
+      ul {
+        li {
+          margin-left: 20px;
+        }
+      }
+    }
+    .banner-image {
+      min-height: 300px !important;
+      position: relative;
+      left: 0;
+      background-size: cover;
+      right: 0;
+      z-index: 1;
+  
+  }
+  .top-bar {
+    ul.nav-pills {
+      li {
+        text-align: center;
+        span {
+          display: none;
+        }
+      }
+    }
+  }
+  .introduction {
+    .col-md-7 {
+      margin-top: 30px;
+    }
+    .section {
+      .col-md-6 {
+        width: 100%;
+      }
+      .col-md-6:nth-child(2) {
+        margin-top: 15px;
+      }
+      .choose-item {
+        i {
+          width: 50px !important;
+          height: 50px !important;
+          line-height: 50px !important;
+          font-size: 20px !important;
+        }
+      }
+      .choose-item-detail {
+        i {
+          width: 50px !important;
+          height: 50px !important;
+          line-height: 50px !important;
+          font-size: 20px !important;
+        }
+      }
+    }
+  }
+  } 
 
 }
 
 @media screen and (max-width: 480px) {
+  .homepage {
+    .banner-image {
+      min-height: 200px !important;
+      position: relative;
+      left: 0;
+      background-size: cover;
+      right: 0;
+      z-index: 1;
+  
+  }
+  }
   .section-about {
     .header-tab-bar {
       img {
