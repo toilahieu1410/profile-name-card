@@ -4,8 +4,7 @@ import { useParams, Outlet } from 'react-router-dom'
 import { BiBuildingHouse } from "react-icons/bi";
 
 import QRCode from 'react-qr-code'
-import { getNameCard, getNewBySlug } from '../../redux/nameCard/action'
-import FooterCard from '../footer';
+import { getAllNameCard, getNameCard, getNewBySlug } from '../../redux/nameCard/action'
 import LogoHopLong from '../../assets/img/logo-hoplong-white.png'
 import LogoGiga from '../../assets/img/logo-giga.png'
 import BannerHopLong from '../../assets/img/hoplong.jpg'
@@ -17,14 +16,25 @@ const Page = () => {
 
   const slug = useParams()
   const listNameCard = useSelector((store) => store.nameCard.listNameCard)
+  const listAllNameCard = useSelector((store) => store.nameCard.listAllNameCard)
 
-  const [urlWeb, setUrlWeb] = useState('https://gigadigital.vn')
-  const [name, setName] = useState(null)
-  const [email, setEmail] = useState(null)
-  const [subject, setSubject] = useState(null)
-  const [message, setMessage] = useState(null)
+  const [page, setPage] = useState(1)
+  const [perPage, setPerPage] = useState(10)
 
-  console.log(process.env,'process.env',slug)
+  const savedSlug = (localStorage.getItem('slug'));
+  useEffect(() => {
+    const params = {
+      page: page,
+      perPage: perPage
+    }
+    dispatch(getAllNameCard(params))
+  }, [page, perPage])
+
+  useEffect(() => {
+    dispatch(getNameCard(savedSlug))
+  }, [savedSlug])
+
+  
   return (
     <div className='homepage'>
       <div className='top-bar'>
@@ -36,7 +46,7 @@ const Page = () => {
             </li>
             <li className='nav-item text-white'>
               <i className="fas fa-phone" aria-hidden="true"></i>
-              <span className='ms-2'>1900.6536</span>
+              <span className='ms-2'> 1900.6536</span>
             </li>
 
             <li className='nav-item text-white'>
@@ -61,7 +71,7 @@ const Page = () => {
             <div className='navbar-collapse collapse'  id="collapsibleNavbar">
               <ul className='ms-auto navbar-nav me-auto'>
                 <li className='nav-item me-5'><a className='nav-link text-white' href='/'><strong>Home</strong></a></li>
-                <li className='nav-item'><a className='nav-link text-white' href={listNameCard != {} ? `${process.env.REACT_APP_DOMAIN_NAMECARD}` : `${process.env.REACT_APP_DOMAIN_NAMECARD}${listNameCard.slug}`}><strong>Detail</strong></a></li>
+                <li className='nav-item'><a className='nav-link text-white' href={ `${process.env.REACT_APP_DOMAIN_NAMECARD}${listNameCard.slug}`}><strong>Detail</strong></a></li>
               </ul>
             </div>
           </nav>
@@ -77,10 +87,10 @@ const Page = () => {
               <div className='bg-white'>
                 <div className='section p-4'>
                   <h4>Giới thiệu</h4>
-                  <p>     Thành lập từ 2010 với mô hình kinh doanh đầu tiên là <strong>phân phối thiết bị tự động hóa và giải pháp tích hợp Robot công nghiệp</strong> cho các nhà máy sản xuất.</p>
-                  <p>     Đến nay, Hợp Long không ngừng phát triển, đi đến ký kết hợp tác chính thức và trở thành một trong những nhà phân phối lớn nhất các sản phẩm từ những nhà cung cấp thiết bị điện tử hàng đầu thế giới tại Việt Nam: Schneider, Autonics, Omron, LS, Hanyoung, Mitsubishi, Patlite, Siemens, Delta,….. </p>
-                  <p>       Ngoài trụ sở chính tại Hà Nội, Hợp Long còn có các chi nhánh đặt tại 4 thành phố cấp 1: Thành phố Hồ Chí Minh, Đà Nẵng, Hải Phòng, Bắc Ninh</p>
-                  <p>     Hệ thống kho hàng của Hợp Long là một trong những kho hàng thiết bị tự động hóa lớn nhất Đông Nam Á với diện tích trên 5000m2, cùng với nhà máy có diện tích gần 2000m2, được trang bị nhiều máy móc hiện đại nhập khẩu từ Nhật Bản và Châu Âu.</p>
+                  <p>Thành lập từ 2010 với mô hình kinh doanh đầu tiên là <strong>phân phối thiết bị tự động hóa và giải pháp tích hợp Robot công nghiệp</strong> cho các nhà máy sản xuất.</p>
+                  <p>Đến nay, Hợp Long không ngừng phát triển, đi đến ký kết hợp tác chính thức và trở thành một trong những nhà phân phối lớn nhất các sản phẩm từ những nhà cung cấp thiết bị điện tử hàng đầu thế giới tại Việt Nam: Schneider, Autonics, Omron, LS, Hanyoung, Mitsubishi, Patlite, Siemens, Delta,….. </p>
+                  <p>Ngoài trụ sở chính tại Hà Nội, Hợp Long còn có các chi nhánh đặt tại 4 thành phố cấp 1: Thành phố Hồ Chí Minh, Đà Nẵng, Hải Phòng, Bắc Ninh</p>
+                  <p>Hệ thống kho hàng của Hợp Long là một trong những kho hàng thiết bị tự động hóa lớn nhất Đông Nam Á với diện tích trên 5000m2, cùng với nhà máy có diện tích gần 2000m2, được trang bị nhiều máy móc hiện đại nhập khẩu từ Nhật Bản và Châu Âu.</p>
                 </div>
               </div>
             </div>
@@ -94,14 +104,13 @@ const Page = () => {
                           <i className='fas fa-eye fa-2x'></i>
                           <h4>Tầm nhìn</h4>
                         </div>
-
                         <p>    Trở thành công ty kinh doanh thiết bị tự động hóa hàng đầu với phương châm phát triển bền vững, tạo dựng niềm tin, góp phần thay đổi diện mạo nền công nghiệp trong nước và vươn tầm thế giới.</p>
                       </div>
                     </div>
                     <div className='col-md-6'>
                       <div className='choose-item'>
                         <div className='text-center'>
-                        <i class="fas fa-sun fa-2x"></i>
+                        <i className="fas fa-sun fa-2x"></i>
                           <h4>Sứ mệnh</h4>
                         </div>
 
@@ -125,7 +134,6 @@ const Page = () => {
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>

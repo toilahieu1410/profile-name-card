@@ -1,8 +1,9 @@
-import { GET_NAMECARD } from "../type"
+import { GET_ALLNAMECARD, GET_NAMECARD } from "../type"
 
 const initialState = {
   listNameCard: {},
   listNews: [],
+  listAllNameCard: []
 }
 
 const nameCard = (state = initialState, action) => {
@@ -12,7 +13,11 @@ const nameCard = (state = initialState, action) => {
         ...state,
         listNameCard: action.data
       }
-
+    case GET_ALLNAMECARD:
+      return {
+        ...state,
+        listAllNameCard: action.data
+      }
       default: 
       return state
   }

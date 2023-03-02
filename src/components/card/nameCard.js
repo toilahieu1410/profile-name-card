@@ -10,6 +10,7 @@ import FooterCard from '../footer';
 import LogoHopLong from '../../assets/img/logo-hoplong-white.png'
 import { checkImage } from '../../utilities/checkImage';
 import moment from 'moment/moment';
+
 const CardName = () => {
 
   const dispatch = useDispatch()
@@ -19,11 +20,18 @@ const CardName = () => {
   const slug = useParams()
   const listNameCard = useSelector((store) => store.nameCard.listNameCard)
 
+
   const [urlWeb, setUrlWeb] = useState('https://gigadigital.vn')
   const [name, setName] = useState(null)
   const [email, setEmail] = useState(null)
   const [subject, setSubject] = useState(null)
   const [message, setMessage] = useState(null)
+
+  useEffect(() => {
+    // Lưu trữ giá trị slug vào localStorage
+    localStorage.setItem('slug', slug.slug);
+  }, [slug]);
+  
 
   useEffect(() => {
     dispatch(getNameCard(slug.slug))
@@ -101,10 +109,8 @@ const CardName = () => {
                       <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
                       <li><strong>Email</strong><span>{listNameCard.mailingAddress}</span></li>
                       <li><strong>Phone</strong><span>{listNameCard.phone1}  {listNameCard.phone2}</span></li>
-                      <li><strong>Facebook</strong><span>{listNameCard.facebook}</span></li>
                     </ul>
                   </div>
-
                 </div>
               </div>
 
@@ -191,15 +197,6 @@ const CardName = () => {
         </div>
       </section>
     </div>
-
-
-
-
-
-
-
-
-
 
 
 
