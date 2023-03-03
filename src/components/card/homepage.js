@@ -34,8 +34,9 @@ const Page = () => {
     dispatch(getNameCard(savedSlug))
   }, [savedSlug])
 
-  
+
   return (
+
     <div className='homepage'>
       <div className='top-bar'>
         <div className='container'>
@@ -56,27 +57,48 @@ const Page = () => {
           </ul>
         </div>
       </div>
-      <div className={listNameCard.company == 'hoplong' ? 'menu-homepage' : 'menu-homepage-giga'}>
-        <div className='container'>
-          <nav className='navbar navbar-expand-md '>
-            {listNameCard.company == 'hoplong' ? (
-              <a href='/' className='flex-1'><img src={LogoHopLong} className='w-40' /></a>
-            ) : (
-              <a href='/' className='flex-1'><img src={LogoGiga} className='w-40' /></a>
-            )}
+      {listNameCard == null ? (
+        <div className={'menu-homepage'}>
+          <div className='container'>
+            <nav className='navbar navbar-expand-md '>
+            <a href='/' className='flex-1'><img src={LogoHopLong} className='w-40' /></a>
 
-            <button className='navbar-toggler collapsed' type='button' data-toggle="collapse" data-target="#collapsibleNavbar">
-              <span className="icon-bar"><i className="fa fa-bars "></i></span>
-            </button>
-            <div className='navbar-collapse collapse'  id="collapsibleNavbar">
-              <ul className='ms-auto navbar-nav me-auto'>
-                <li className='nav-item me-5'><a className='nav-link text-white' href='/'><strong>Home</strong></a></li>
-                <li className='nav-item'><a className='nav-link text-white' href={ `${process.env.REACT_APP_DOMAIN_NAMECARD}${listNameCard.slug}`}><strong>Detail</strong></a></li>
-              </ul>
-            </div>
-          </nav>
+              <button className='navbar-toggler collapsed' type='button' data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span className="icon-bar"><i className="fa fa-bars "></i></span>
+              </button>
+              <div className='navbar-collapse collapse' id="collapsibleNavbar">
+                <ul className='ms-auto navbar-nav me-auto'>
+                  <li className='nav-item me-5'><a className='nav-link text-white' href='/'><strong>Home</strong></a></li>
+                  <li className='nav-item'><span className='nav-link text-white'><strong>Detail</strong></span></li>
+                </ul>
+              </div>
+            </nav>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className={ listNameCard.company == 'hoplong' ? 'menu-homepage' : 'menu-homepage-giga'}>
+          <div className='container'>
+            <nav className='navbar navbar-expand-md '>
+              {listNameCard.company == 'hoplong' ? (
+                <a href='/' className='flex-1'><img src={LogoHopLong} className='w-40' /></a>
+              ) : (
+                <a href='/' className='flex-1'><img src={LogoGiga} className='w-40' /></a>
+              )}
+
+              <button className='navbar-toggler collapsed' type='button' data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span className="icon-bar"><i className="fa fa-bars "></i></span>
+              </button>
+              <div className='navbar-collapse collapse' id="collapsibleNavbar">
+                <ul className='ms-auto navbar-nav me-auto'>
+                  <li className='nav-item me-5'><a className='nav-link text-white' href='/'><strong>Home</strong></a></li>
+                  <li className='nav-item'><a className='nav-link text-white' href={`${process.env.REACT_APP_DOMAIN_NAMECARD}${listNameCard.slug}`}><strong>Detail</strong></a></li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      )}
+ 
       <section className='banner-image'>
         {/* <img src={BannerHopLong} className='w-100' /> */}
       </section>
@@ -110,7 +132,7 @@ const Page = () => {
                     <div className='col-md-6'>
                       <div className='choose-item'>
                         <div className='text-center'>
-                        <i className="fas fa-sun fa-2x"></i>
+                          <i className="fas fa-sun fa-2x"></i>
                           <h4>Sứ mệnh</h4>
                         </div>
 
