@@ -147,12 +147,12 @@ const Page = () => {
                           <h4>Giá trị cốt lõi</h4>
                         </div>
 
-                        <p className='mb-2'>    - Tiên phong mở đường và mạnh dạn đương đầu với những thử thách</p>
-                        <p className='mb-2'>  - Đổi mới và năng động để phát triển bền vững</p>
-                        <p className='mb-2'>        - Cam kết chất lượng là nguyên tắc ứng xử của mỗi thành viên trong phục vụ khách hàng và đối tác</p>
-                        <p className='mb-2'>   - Trách nhiệm với cộng đồng</p>
+                        <p className='mb-2'> - Tiên phong mở đường và mạnh dạn đương đầu với những thử thách</p>
+                        <p className='mb-2'> - Đổi mới và năng động để phát triển bền vững</p>
+                        <p className='mb-2'> - Cam kết chất lượng là nguyên tắc ứng xử của mỗi thành viên trong phục vụ khách hàng và đối tác</p>
+                        <p className='mb-2'> - Trách nhiệm với cộng đồng</p>
                         <p className='mb-2'> - Phấn đấu phát triển bền vững</p>
-                        <p className='mb-2'>   - Tạo dựng môi trường làm việc tốt nhất cho các thành viên công ty</p>
+                        <p className='mb-2'> - Tạo dựng môi trường làm việc tốt nhất cho các thành viên công ty</p>
                       </div>
                     </div>
                   </div>
