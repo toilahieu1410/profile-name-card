@@ -8,7 +8,5 @@ export const _getAllNameCard = async (params) => {
 }
 export const _getNameCard = async (slug) => {
   const request = await axiosInstance.get(`${API_SERVER}/name-card/web/${slug}`)
-  console.log(request.data,'ddd')
   return request.data
-
 }

@@ -19,7 +19,6 @@ const CardName = () => {
 
   const slug = useParams()
   const listNameCard = useSelector((store) => store.nameCard.listNameCard)
-
   const [urlWeb, setUrlWeb] = useState('https://gigadigital.vn')
   const [name, setName] = useState(null)
   const [email, setEmail] = useState(null)
@@ -107,7 +106,7 @@ const CardName = () => {
                       <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li>
                       <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
                       <li><strong>Email</strong><span>{listNameCard.mailingAddress}</span></li>
-                      <li><strong>Phone</strong><span>{listNameCard.phone1}  {listNameCard.phone2}</span></li>
+                      <li><strong>Phone</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
                     </ul>
                   </div>
                 </div>
@@ -149,7 +148,7 @@ const CardName = () => {
                         <strong>Address</strong>
                         <span>{listNameCard.streetAddress}</span>
                       </li>
-                      <li>
+                      <li className='mb-3'>
                         <strong>Trực thuộc</strong>
                         <span>{listNameCard.company === 'hoplong' ? 'Hợp Long' : 'Giga Digital'}</span>
                       </li>
