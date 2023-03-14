@@ -144,10 +144,7 @@ const CardName = () => {
                         <strong>Phone2</strong>
                         <span>{listNameCard.phone2}</span>
                       </li>
-                      <li className='mb-3'>
-                        <strong>Facebook</strong>
-                        <a href='#'>{listNameCard.facebook}</a>
-                      </li>
+                     
                       <li className='mb-3'>
                         <strong>Address</strong>
                         <span>{listNameCard.streetAddress}</span>
@@ -155,6 +152,10 @@ const CardName = () => {
                       <li>
                         <strong>Trực thuộc</strong>
                         <span>{listNameCard.company === 'hoplong' ? 'Hợp Long' : 'Giga Digital'}</span>
+                      </li>
+                      <li className='mb-3'>
+                        <strong>Facebook</strong>
+                        <a href='#'>{listNameCard.facebook}</a>
                       </li>
                     </ul>
                   </div>
