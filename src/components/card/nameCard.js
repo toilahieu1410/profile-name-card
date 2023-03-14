@@ -20,7 +20,6 @@ const CardName = () => {
   const slug = useParams()
   const listNameCard = useSelector((store) => store.nameCard.listNameCard)
 
-
   const [urlWeb, setUrlWeb] = useState('https://gigadigital.vn')
   const [name, setName] = useState(null)
   const [email, setEmail] = useState(null)
@@ -61,7 +60,6 @@ const CardName = () => {
     img.src = `data:image/svg+xml;base64,${btoa(svgData)}`
   }
 
-  console.log(listNameCard, 'listNameCard', listNameCard.birthday)
   return (
     <div className='section-about'>
       <header className='header position-relative'>
@@ -105,6 +103,7 @@ const CardName = () => {
                   </div>
                   <div className='profile-list-user '>
                     <ul className='list-unstyled'>
+                
                       <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li>
                       <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
                       <li><strong>Email</strong><span>{listNameCard.mailingAddress}</span></li>
