@@ -38,7 +38,7 @@ const Page = () => {
   return (
 
     <div className='homepage'>
-      <div className='top-bar'>
+      {/* <div className='top-bar'>
         <div className='container'>
           <ul className='list-unstyled nav nav-pills d-flex p-1'>
             <li className='nav-item text-white'>
@@ -56,7 +56,7 @@ const Page = () => {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
       {listNameCard == null ? (
         <div className={'menu-homepage'}>
           <div className='container'>
