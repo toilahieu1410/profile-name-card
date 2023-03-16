@@ -10,7 +10,7 @@ export const checkImage = (image) => {
   if(image) {
     const check = image.indexOf('http')
     if(check == -1) {
-      return `${process.env.REACT_APP_IMAGE}/new/${image}`
+      return `${process.env.REACT_APP_IMAGE}new/${image}`
     } else {
       return image
     }

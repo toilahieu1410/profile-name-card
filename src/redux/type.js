@@ -1,1 +1,2 @@
 export const GET_NAMECARD = 'GET_NAMECARD'
+export const GET_ALLNAMECARD = 'GET_ALLNAMECARD'

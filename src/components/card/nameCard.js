@@ -2,58 +2,61 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, Outlet } from 'react-router-dom'
 import { BiBuildingHouse } from "react-icons/bi";
-
+import { useForm } from "react-hook-form"
 import QRCode from 'react-qr-code'
 import LogoGiga from '../../assets/img/logo-giga.png'
 import { getNameCard, getNewBySlug } from '../../redux/nameCard/action'
 import FooterCard from '../footer';
 import LogoHopLong from '../../assets/img/logo-hoplong-white.png'
-import { checkImage } from '../../utilities/checkImage';
-import moment from 'moment/moment';
+import { checkImage } from '../../utilities/checkImage'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+// import moment from 'moment/moment';
+
 const CardName = () => {
 
   const dispatch = useDispatch()
 
-  // const slug = window.location.pathname.replace('/', '')
+  const { register, formState: { errors }, reset } = useForm()
 
   const slug = useParams()
   const listNameCard = useSelector((store) => store.nameCard.listNameCard)
-
   const [urlWeb, setUrlWeb] = useState('https://gigadigital.vn')
   const [name, setName] = useState(null)
   const [email, setEmail] = useState(null)
   const [subject, setSubject] = useState(null)
   const [message, setMessage] = useState(null)
+  const [successMessage, setSuccessMessage] = useState(false)
+
+  useEffect(() => {
+    // Lưu trữ giá trị slug vào localStorage
+    localStorage.setItem('slug', slug.slug);
+  }, [slug]);
 
   useEffect(() => {
     dispatch(getNameCard(slug.slug))
   }, [slug])
 
-  const date2 = new Date(listNameCard.birthday);
-  const ageInMilliseconds = Date.now() - date2.getTime() ;
-  const ageInYears = ageInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
-
-  //download img QRCode
-  const download = () => {
-    const svg = document.getElementById('QRCode')
-    const svgData = new XMLSerializer().serializeToString(svg)
-    const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')
-    const img = new Image()
-    img.onload = () => {
-      canvas.width = img.width
-      canvas.height = img.height
-      ctx.drawImage(img, 0, 0)
-      const pngFile = canvas.toDataURL('image/png')
-      const downloadLink = document.createElement('a')
-      downloadLink.download = 'gigaDigital'
-      downloadLink.href = `${pngFile}`
-      downloadLink.click()
-    }
-    img.src = `data:image/svg+xml;base64,${btoa(svgData)}`
+  const onSubmit = async (data) => {
+    // Handle form submit here
+    setSuccessMessage(true);
+    reset();
   }
 
-  console.log(listNameCard, 'listNameCard', listNameCard.birthday)
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (name && email && message) { // kiểm tra các trường input đã được nhập đầy đủ hay chưa
+      toast.success('Gửi thành công'); // hiển thị thông báo thành công
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
+    } else {
+      toast.error('Vui lòng nhập đầy đủ thông tin'); // hiển thị thông báo lỗi
+    }
+  };
+
+
   return (
     <div className='section-about'>
       <header className='header position-relative'>
@@ -97,26 +100,25 @@ const CardName = () => {
                   </div>
                   <div className='profile-list-user '>
                     <ul className='list-unstyled'>
-                      <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li>
+
+                      {/* <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li> */}
                       <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
-                      <li><strong>Email</strong><span>{listNameCard.mailingAddress}</span></li>
-                      <li><strong>Phone</strong><span>{listNameCard.phone1}  {listNameCard.phone2}</span></li>
-                      <li><strong>Facebook</strong><span>{listNameCard.facebook}</span></li>
+                      <li><strong>Email</strong><a href={`mailto:${listNameCard.mailingAddress}`} className='text-decoration-none '>{listNameCard.mailingAddress}</a></li>
+                      <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
                     </ul>
                   </div>
-
                 </div>
               </div>
 
             </div>
             <div className='profile-social'>
               <ul className='list-unstyled d-flex mb-0 justify-content-center'>
-                <li><a href='#' className='text-white'><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i class="fab fa-dribbble" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-dribbble" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href='#' className='text-white'><i className="fab fa-google-plus" aria-hidden="true"></i></a></li>
               </ul>
             </div>
           </div>
@@ -129,27 +131,24 @@ const CardName = () => {
                     <ul className='list-unstyled list-contact'>
                       <li className='mb-3'>
                         <strong>Email</strong>
-                        <a href={`mailto:${listNameCard.mailingAddress}`}>{listNameCard.mailingAddress}</a>
+                        <span className='text-decoration-none '>{listNameCard.mailingAddress}</span>
                       </li>
                       <li className='mb-3'>
-                        <strong>Phone1</strong>
-                        <span>{listNameCard.phone1}</span>
+                        <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
                       </li>
+
+
                       <li className='mb-3'>
-                        <strong>Phone2</strong>
-                        <span>{listNameCard.phone2}</span>
-                      </li>
-                      <li className='mb-3'>
-                        <strong>Facebook</strong>
-                        <a href='#'>{listNameCard.facebook}</a>
-                      </li>
-                      <li className='mb-3'>
-                        <strong>Address</strong>
+                        <strong>Địa chỉ</strong>
                         <span>{listNameCard.streetAddress}</span>
                       </li>
-                      <li>
+                      {/* <li className='mb-3'>
                         <strong>Trực thuộc</strong>
                         <span>{listNameCard.company === 'hoplong' ? 'Hợp Long' : 'Giga Digital'}</span>
+                      </li> */}
+                      <li className='mb-3'>
+                        <strong>Facebook</strong>
+                        <a href={listNameCard.facebook} >{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
                       </li>
                     </ul>
                   </div>
@@ -157,31 +156,40 @@ const CardName = () => {
                 <div className='col-md-6'>
                   <div className='section-box'>
                     <h3 className='mb-4'>Gửi ý kiến của bạn</h3>
-                    <form className='contact-form' method='post'>
+                    <form className='contact-form' onSubmit={handleSubmit}>
                       <div className='input-form form-group'>
-                        <input className='form-control' value={name} type={'text'} name='name' onChange={(e) => setName(e.target.value)} />
-                        <label className={name && 'filled'} htmlFor='name'>Name</label>
-                      </div>
-                      <div className='input-form form-group'>
-                        <input className='form-control' type={'text'} name='email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                        <label className={email && 'filled'} htmlFor='email'>Email</label>
-                      </div>
-                      <div className='input-form form-group'>
-                        <input className='form-control' type={'text'} name='name' value={subject} onChange={(e) => setSubject(e.target.value)} />
-                        <label className={subject && 'filled'}>Subject</label>
+                        <input className='form-control' value={name} type={'text'} name='name' placeholder='Name (*)' onChange={(e) => setName(e.target.value)}
+
+                 
+                        />
+               
+                        {/* <label className={name && 'filled'} htmlFor='name'>Name (*)</label> */}
                       </div>
                       <div className='input-form form-group'>
-                        <textarea className='form-control' type={'text'} name='name' value={message} onChange={(e) => setMessage(e.target.value)} rows='3'></textarea>
-                        <label className={message && 'filled'}>Message</label>
+                        <input className='form-control' type={'text'} name='email' placeholder='Email (*)' required value={email} onChange={(e) => setEmail(e.target.value)}
+                        
+                        />
+              
+                        {/* <label className={email && 'filled'} htmlFor='email'>Email (*)</label> */}
                       </div>
-                      <div className='input-form-check form-group'>
-                        <input type={'checkbox'} />
-                        <label className='col-form-label ml-10'>Tôi đã đọc chính sách</label>
+                      <div className='input-form form-group'>
+                        <input className='form-control' type={'text'} placeholder='Subject' name='subject' value={subject} onChange={(e) => setSubject(e.target.value)} />
+                        {/* <label className={subject && 'filled'}>Subject</label> */}
                       </div>
-                      {/* <div className='button text-left mt-3'>
-                        <button type='button' className='btn btn-primary'>Gửi</button>
-                      </div> */}
+                      <div className='input-form form-group'>
+                        <textarea className='form-control' placeholder='Message (*)' type={'text'} name='message' required value={message} onChange={(e) => setMessage(e.target.value)} rows='3'
+                       
+                        ></textarea>
+                        {errors.message && <p className='text-danger'>Không để trống trường này</p>}
+                        {/* <label className={message && 'filled'}>Message (*)</label> */}
+                      </div>
+                      <div className='button text-center mt-3'>
+                        <div className='button text-center mt-3'>
+                          <button type='submit' className='btn btn-primary' onClick={handleSubmit}>Gửi</button>
+                        </div>
+                      </div>
                     </form>
+                    { <ToastContainer />}
                   </div>
                 </div>
 
@@ -191,15 +199,6 @@ const CardName = () => {
         </div>
       </section>
     </div>
-
-
-
-
-
-
-
-
-
 
 
 

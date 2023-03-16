@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import ReactHtmlParser from 'react-html-parser'
-import { addressStore } from "../contact/dataAddress" 
+import { addressStore } from "../company/companyHopLong" 
 import { BiHomeAlt, BiPhoneCall, BiMailSend } from "react-icons/bi"
 
 const FooterCard = (props) => {
