@@ -148,7 +148,7 @@ const CardName = () => {
                       </li> */}
                       <li className='mb-3'>
                         <strong>Facebook</strong>
-                        <a href={listNameCard.facebook} >{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
+                        <a target={'_blank'} href={listNameCard.facebook} >{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
                       </li>
                     </ul>
                   </div>
