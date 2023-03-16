@@ -106,7 +106,7 @@ const CardName = () => {
                       <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li>
                       <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
                       <li><strong>Email</strong><a href={`mailto:${listNameCard.mailingAddress}`} className='text-decoration-none '>{listNameCard.mailingAddress}</a></li>
-                      <li><strong>Phone</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
+                      <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
                     </ul>
                   </div>
                 </div>
@@ -136,16 +136,12 @@ const CardName = () => {
                         <a href={`mailto:${listNameCard.mailingAddress}`} className='text-decoration-none '>{listNameCard.mailingAddress}</a>
                       </li>
                       <li className='mb-3'>
-                        <strong>Phone1</strong>
-                        <span>{listNameCard.phone1}</span>
+                      <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
                       </li>
-                      <li className='mb-3'>
-                        <strong>Phone2</strong>
-                        <span>{listNameCard.phone2}</span>
-                      </li>
+                 
                      
                       <li className='mb-3'>
-                        <strong>Address</strong>
+                        <strong>Địa chỉ</strong>
                         <span>{listNameCard.streetAddress}</span>
                       </li>
                       <li className='mb-3'>
@@ -154,7 +150,7 @@ const CardName = () => {
                       </li>
                       <li className='mb-3'>
                         <strong>Facebook</strong>
-                        <a href={listNameCard.facebook}>{listNameCard.facebook}</a>
+                        <a href={listNameCard.facebook} className='text-decoration-none'>{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
                       </li>
                     </ul>
                   </div>
@@ -179,10 +175,10 @@ const CardName = () => {
                         <textarea className='form-control' type={'text'} name='name' value={message} onChange={(e) => setMessage(e.target.value)} rows='3'></textarea>
                         <label className={message && 'filled'}>Message</label>
                       </div>
-                      <div className='input-form-check form-group'>
+                      {/* <div className='input-form-check form-group'>
                         <input type={'checkbox'} />
                         <label className='col-form-label ml-10'>Tôi đã đọc chính sách</label>
-                      </div>
+                      </div> */}
                       {/* <div className='button text-left mt-3'>
                         <button type='button' className='btn btn-primary'>Gửi</button>
                       </div> */}
