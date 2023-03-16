@@ -146,10 +146,12 @@ const CardName = () => {
                         <strong>Trực thuộc</strong>
                         <span>{listNameCard.company === 'hoplong' ? 'Hợp Long' : 'Giga Digital'}</span>
                       </li> */}
-                      <li className='mb-3'>
-                        <strong>Facebook</strong>
-                        <a href={listNameCard.facebook} >{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
-                      </li>
+                      {listNameCard.facebook == null &&
+                        <li className='mb-3'>
+                          <strong>Facebook</strong>
+                          <a href={listNameCard.facebook} >{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
+                        </li>}
+
                     </ul>
                   </div>
                 </div>
@@ -160,16 +162,16 @@ const CardName = () => {
                       <div className='input-form form-group'>
                         <input className='form-control' value={name} type={'text'} name='name' placeholder='Name (*)' onChange={(e) => setName(e.target.value)}
 
-                 
+
                         />
-               
+
                         {/* <label className={name && 'filled'} htmlFor='name'>Name (*)</label> */}
                       </div>
                       <div className='input-form form-group'>
                         <input className='form-control' type={'text'} name='email' placeholder='Email (*)' required value={email} onChange={(e) => setEmail(e.target.value)}
-                        
+
                         />
-              
+
                         {/* <label className={email && 'filled'} htmlFor='email'>Email (*)</label> */}
                       </div>
                       <div className='input-form form-group'>
@@ -178,7 +180,7 @@ const CardName = () => {
                       </div>
                       <div className='input-form form-group'>
                         <textarea className='form-control' placeholder='Message (*)' type={'text'} name='message' required value={message} onChange={(e) => setMessage(e.target.value)} rows='3'
-                       
+
                         ></textarea>
                         {errors.message && <p className='text-danger'>Không để trống trường này</p>}
                         {/* <label className={message && 'filled'}>Message (*)</label> */}
@@ -189,7 +191,7 @@ const CardName = () => {
                         </div>
                       </div>
                     </form>
-                    { <ToastContainer />}
+                    {<ToastContainer />}
                   </div>
                 </div>
 
