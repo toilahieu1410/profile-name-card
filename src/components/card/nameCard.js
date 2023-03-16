@@ -105,7 +105,7 @@ const CardName = () => {
                 
                       <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li>
                       <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
-                      <li><strong>Email</strong><span>{listNameCard.mailingAddress}</span></li>
+                      <li><strong>Email</strong><a href={`mailto:${listNameCard.mailingAddress}`} className='text-decoration-none '>{listNameCard.mailingAddress}</a></li>
                       <li><strong>Phone</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
                     </ul>
                   </div>
@@ -133,7 +133,7 @@ const CardName = () => {
                     <ul className='list-unstyled list-contact'>
                       <li className='mb-3'>
                         <strong>Email</strong>
-                        <a href={`mailto:${listNameCard.mailingAddress}`} className='text-decoration-none'>{listNameCard.mailingAddress}</a>
+                        <a href={`mailto:${listNameCard.mailingAddress}`} className='text-decoration-none '>{listNameCard.mailingAddress}</a>
                       </li>
                       <li className='mb-3'>
                         <strong>Phone1</strong>
@@ -154,7 +154,7 @@ const CardName = () => {
                       </li>
                       <li className='mb-3'>
                         <strong>Facebook</strong>
-                        <a href='#'>{listNameCard.facebook}</a>
+                        <a href={listNameCard.facebook}>{listNameCard.facebook}</a>
                       </li>
                     </ul>
                   </div>
