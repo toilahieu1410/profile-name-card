@@ -123,9 +123,10 @@
         .profile-list-user {
           ul {
             li {
+              display: flex;
               line-height: 2;
               strong {
-                min-width: 100px;
+                min-width: 80px;
                 font-weight: 500;
                 display: inline-block;
                 float: left;
