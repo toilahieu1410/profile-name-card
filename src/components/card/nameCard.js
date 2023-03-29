@@ -57,7 +57,6 @@ const CardName = () => {
     }
   };
 
-
   return (
     <div className='section-about'>
       <header className='header position-relative'>
@@ -96,7 +95,7 @@ const CardName = () => {
                       <h3 className='mb-1'> <span className='fw-bold'>{listNameCard.name}</span></h3>
                     </div>
                     <div className='profile-job'>
-                      <p className='mb-0'>{listNameCard.subname == null ? '' : '(' + listNameCard.subname + ')'} </p>
+                      <p className='mb-0'>{listNameCard.subname == null || listNameCard.subname == ''  ? '' : '(' + listNameCard.subname + ')'} </p>
                     </div>
                     <div className='profile-job'>
                       <p className='mb-0'>{listNameCard.jobTitle}</p>
