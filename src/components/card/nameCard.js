@@ -156,7 +156,6 @@ const CardName = () => {
                           <strong>Facebook</strong>
                           <a href={listNameCard.facebook} className='text-decoration-none'>{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
                         </li>}
-
                     </ul>
                   </div>
                 </div>
