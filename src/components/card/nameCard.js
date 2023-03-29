@@ -4,10 +4,11 @@ import { useParams, Outlet } from 'react-router-dom'
 import { BiBuildingHouse } from "react-icons/bi";
 import { useForm } from "react-hook-form"
 import QRCode from 'react-qr-code'
-import LogoGiga from '../../assets/img/logo-giga.png'
+
 import { getNameCard, getNewBySlug } from '../../redux/nameCard/action'
 import FooterCard from '../footer';
 import LogoHopLong from '../../assets/img/logo-hoplong-white.png'
+import LogoGiga from '../../assets/img/logo-gigawhite.png'
 import { checkImage } from '../../utilities/checkImage'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -67,7 +68,12 @@ const CardName = () => {
         </div>
         <div className='header-tab-bar w-100'>
           <div className='col-md-12 text-center pt-3'>
-            <img src={LogoHopLong} className='w-15 position-relative' />
+            {listNameCard.company == 'hoplong' ? (
+              <img src={LogoHopLong} className='w-15 position-relative' />
+            ) : (
+              <img src={LogoGiga} className='w-15 position-relative' />
+            )}
+
           </div>
         </div>
       </header>
@@ -146,7 +152,7 @@ const CardName = () => {
                         <strong>Trực thuộc</strong>
                         <span>{listNameCard.company === 'hoplong' ? 'Hợp Long' : 'Giga Digital'}</span>
                       </li> */}
-                      {listNameCard.facebook == null &&
+                      {listNameCard.facebook !== null &&
                         <li className='mb-3'>
                           <strong>Facebook</strong>
                           <a target={'_blank'} href={listNameCard.facebook} >{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
