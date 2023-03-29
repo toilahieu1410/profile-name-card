@@ -109,7 +109,7 @@ const CardName = () => {
 
                       {/* <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li> */}
                       <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
-                      <li><strong>Email</strong><a href={`mailto:${listNameCard.mailingAddress}`} className='text-decoration-none '>{listNameCard.mailingAddress}</a></li>
+                      <li><strong>Email</strong><span  className='text-decoration-none '>{listNameCard.mailingAddress}</span></li>
                       <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
                     </ul>
                   </div>
@@ -153,9 +153,9 @@ const CardName = () => {
                         <span>{listNameCard.company === 'hoplong' ? 'Hợp Long' : 'Giga Digital'}</span>
                       </li> */}
                       {listNameCard.facebook !== null &&
-                        <li className='mb-3'>
+                        <li className='mb-3 mb-facebook'>
                           <strong>Facebook</strong>
-                          <a href={listNameCard.facebook} >{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
+                          <a href={listNameCard.facebook} className='text-decoration-none'>{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
                         </li>}
 
                     </ul>
