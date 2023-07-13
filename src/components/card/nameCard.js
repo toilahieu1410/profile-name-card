@@ -7,8 +7,8 @@ import QRCode from 'react-qr-code'
 
 import { getNameCard, getNewBySlug } from '../../redux/nameCard/action'
 import FooterCard from '../footer';
-import LogoHopLong from '../../assets/img/logo-hoplong-white.png'
-import LogoGiga from '../../assets/img/logo-gigawhite.png'
+import LogoHopLong from '../../assets/img/logo-02.png'
+import LogoGiga from '../../assets/img/logo-01.png'
 import { checkImage } from '../../utilities/checkImage'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -68,9 +68,18 @@ const CardName = () => {
         <div className='header-tab-bar w-100'>
           <div className='col-md-12 text-center pt-3'>
             {listNameCard.company == 'hoplong' ? (
-              <img src={LogoHopLong} className='w-15 position-relative' />
+              <div className='d-flex align-items-center justify-content-center'>
+                <img src={LogoHopLong} className='w-15 position-relative' style={{ maxWidth: 150 }} />
+                <div className='line-middle'></div>
+                <img src={LogoGiga} className='w-15 position-relative' />
+              </div>
+
             ) : (
-              <img src={LogoGiga} className='w-15 position-relative' />
+              <div className='d-flex align-items-center justify-content-center'>
+                <img src={LogoHopLong} className='w-15 position-relative' style={{ maxWidth: 150 }} />
+                <div className='line-middle'></div>
+                <img src={LogoGiga} className='w-15 position-relative' />
+              </div>
             )}
 
           </div>
@@ -95,7 +104,7 @@ const CardName = () => {
                       <h3 className='mb-1'> <span className='fw-bold'>{listNameCard.name}</span></h3>
                     </div>
                     <div className='profile-job'>
-                      <p className='mb-0'>{listNameCard.subname == null || listNameCard.subname == ''  ? '' : '(' + listNameCard.subname + ')'} </p>
+                      <p className='mb-0'>{listNameCard.subname == null || listNameCard.subname == '' ? '' : '(' + listNameCard.subname + ')'} </p>
                     </div>
                     <div className='profile-job'>
                       <p className='mb-0'>{listNameCard.jobTitle}</p>
@@ -108,7 +117,7 @@ const CardName = () => {
 
                       {/* <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li> */}
                       <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
-                      <li><strong>Email</strong><span  className='text-decoration-none '>{listNameCard.mailingAddress}</span></li>
+                      <li><strong>Email</strong><span className='text-decoration-none '>{listNameCard.mailingAddress}</span></li>
                       <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
                     </ul>
                   </div>
@@ -164,10 +173,7 @@ const CardName = () => {
                     <h3 className='mb-4'>Gửi ý kiến của bạn</h3>
                     <form className='contact-form' onSubmit={handleSubmit}>
                       <div className='input-form form-group'>
-                        <input className='form-control' value={name} type={'text'} name='name' placeholder='Name (*)' onChange={(e) => setName(e.target.value)}
-
-
-                        />
+                        <input className='form-control' value={name} type={'text'} name='name' placeholder='Name (*)' onChange={(e) => setName(e.target.value)} />
 
                         {/* <label className={name && 'filled'} htmlFor='name'>Name (*)</label> */}
                       </div>

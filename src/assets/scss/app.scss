@@ -431,6 +431,21 @@
     }
   }
 }
+.line-middle {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  &::before {
+    content: "";
+    width: 1px;
+    height: 100%;
+    display: block;
+    left: 50%;
+    position: absolute;
+    background: linear-gradient(to top, #dddddd14, #ccc, #dddddd14);
+    z-index: 9;
+  }
+}
 .pl-0 {
   padding-left: 0 !important;
 }
