@@ -122,16 +122,14 @@ const CardName = () => {
                       </div>
                       <div className='profile-list-user '>
                         <ul className='list-unstyled'>
-
                           {/* <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li> */}
                           <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
                           <li><strong>Email</strong><span className='text-decoration-none '>{listNameCard.mailingAddress}</span></li>
-                          <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
+                          <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null || listNameCard.phone2.length == 0 && (' - ' + listNameCard.phone2)}</span></li>
                         </ul>
                       </div>
                     </div>
                   </div>
-
                 </div>
                 <div className='profile-social'>
                   <ul className='list-unstyled d-flex mb-0 justify-content-center'>
@@ -153,13 +151,11 @@ const CardName = () => {
                         <ul className='list-unstyled list-contact'>
                           <li className='mb-3'>
                             <strong>Email</strong>
-                            <span className='text-decoration-none '>{listNameCard.mailingAddress}</span>
+                            <span className='text-decoration-none'>{listNameCard.mailingAddress}</span>
                           </li>
                           <li className='mb-3'>
                             <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
                           </li>
-
-
                           <li className='mb-3'>
                             <strong>Địa chỉ</strong>
                             <span>{listNameCard.streetAddress}</span>
