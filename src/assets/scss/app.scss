@@ -4,6 +4,36 @@
 @import url("https://use.fontawesome.com/releases/v5.0.0/css/all.css");
 
 //css detail namecard
+.position-loading {
+  bottom: 17px;
+  left: 10px;
+  .loading-screen {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    position: fixed !important;
+    background: #fff;
+    transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
+    z-index: 999;
+    .loadingspinner {
+      pointer-events: none;
+      width: 7em;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      height: 7em;
+      position: absolute;
+      top: 50%;
+      border: 0.4em solid transparent;
+      border-color: #eee;
+      border-top-color: #0e71b9;
+      border-radius: 50%;
+      animation: loadingspin 1s linear infinite;
+    }
+  }
+}
 .section-about {
   background-color: #efefef;
   .header-bg {
@@ -429,6 +459,21 @@
     &:hover {
       text-decoration: underline !important;
     }
+  }
+}
+.line-middle {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  &::before {
+    content: "";
+    width: 1px;
+    height: 100%;
+    display: block;
+    left: 50%;
+    position: absolute;
+    background: linear-gradient(to top, #dddddd14, #ccc, #dddddd14);
+    z-index: 9;
   }
 }
 .pl-0 {

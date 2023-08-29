@@ -7,11 +7,12 @@ import QRCode from 'react-qr-code'
 
 import { getNameCard, getNewBySlug } from '../../redux/nameCard/action'
 import FooterCard from '../footer';
-import LogoHopLong from '../../assets/img/logo-hoplong-white.png'
-import LogoGiga from '../../assets/img/logo-gigawhite.png'
+import LogoHopLong from '../../assets/img/logo-02.png'
+import LogoGiga from '../../assets/img/logo-01.png'
 import { checkImage } from '../../utilities/checkImage'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Loading from '../../utilities/loading';
 // import moment from 'moment/moment';
 
 const CardName = () => {
@@ -28,6 +29,7 @@ const CardName = () => {
   const [subject, setSubject] = useState(null)
   const [message, setMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(false)
+
 
   useEffect(() => {
     // Lưu trữ giá trị slug vào localStorage
@@ -57,153 +59,164 @@ const CardName = () => {
     }
   };
 
+
   return (
     <div className='section-about'>
-      <header className='header position-relative'>
-        <div className='header-bg position-absolute top-0'>
-          <div className=''>
+      {Object.keys(listNameCard).length == 0 ? (
+        <Loading />
+      ) : (
+        <>
+          <header className='header position-relative'>
+            <div className='header-bg position-absolute top-0'>
+              <div className=''>
 
-          </div>
-        </div>
-        <div className='header-tab-bar w-100'>
-          <div className='col-md-12 text-center pt-3'>
-            {listNameCard.company == 'hoplong' ? (
-              <img src={LogoHopLong} className='w-15 position-relative' />
-            ) : (
-              <img src={LogoGiga} className='w-15 position-relative' />
-            )}
+              </div>
+            </div>
+            <div className='header-tab-bar w-100'>
+              <div className='col-md-12 text-center pt-3'>
+                {listNameCard.company == 'hoplong' ? (
+                  <div className='d-flex align-items-center justify-content-center'>
+                    <img src={LogoHopLong} className='w-15 position-relative' style={{ maxWidth: 150 }} />
+                  </div>
+                ) : listNameCard.company == 'giga' ? (
+                  <div className='d-flex align-items-center justify-content-center'>
+                    <img src={LogoGiga} className='w-15 position-relative' />
+                  </div>
+                ) : (
+                  <div className='d-flex align-items-center justify-content-center'>
+                    <img src={LogoHopLong} className='w-15 position-relative' style={{ maxWidth: 150 }} />
+                    <div className='line-middle'></div>
+                    <img src={LogoGiga} className='w-15 position-relative' />
+                  </div>
+                )}
 
-          </div>
-        </div>
-      </header>
-      <section className='section-content'>
-        <div className='container'>
-          <div className='about-info bg-white'>
-            <div className='p-4 section-box'>
-              <div className='row'>
-                <div className='col-sm-5'>
-                  <div className='profile-user'>
-                    <img src={checkImage(listNameCard.avatar)} className='w-100 position-relative' />
+              </div>
+            </div>
+          </header>
+          <section className='section-content'>
+            <div className='container'>
+              <div className='about-info bg-white'>
+                <div className='p-4 section-box'>
+                  <div className='row'>
+                    <div className='col-sm-5'>
+                      <div className='profile-user'>
+                        <img src={checkImage(listNameCard.avatar)} className='w-100 position-relative' />
+                      </div>
+                    </div>
+                    <div className='col-sm-7 pb-3'>
+                      <div className='profile-info-user'>
+                        <div className='profile-hello'>
+                          <span>Xin chào</span>
+                        </div>
+                        <div className='profile-username mt-4'>
+                          <h3 className='mb-1'> <span className='fw-bold'>{listNameCard.name}</span></h3>
+                        </div>
+                        <div className='profile-job'>
+                          <p className='mb-0'>{listNameCard.subname == null || listNameCard.subname == '' ? '' : '(' + listNameCard.subname + ')'} </p>
+                        </div>
+                        <div className='profile-job'>
+                          <p className='mb-0'>{listNameCard.jobTitle}</p>
+                        </div>
+                      </div>
+                      <div className='vertical-line'>
+                      </div>
+                      <div className='profile-list-user '>
+                        <ul className='list-unstyled'>
+                          {/* <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li> */}
+                          <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
+                          <li><strong>Email</strong><span className='text-decoration-none '>{listNameCard.mailingAddress}</span></li>
+                          <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null || listNameCard.phone2.length == 0 && (' - ' + listNameCard.phone2)}</span></li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className='col-sm-7 pb-3'>
-                  <div className='profile-info-user'>
-                    <div className='profile-hello'>
-                      <span>Xin chào</span>
-                    </div>
-                    <div className='profile-username mt-4'>
-                      <h3 className='mb-1'> <span className='fw-bold'>{listNameCard.name}</span></h3>
-                    </div>
-                    <div className='profile-job'>
-                      <p className='mb-0'>{listNameCard.subname == null || listNameCard.subname == ''  ? '' : '(' + listNameCard.subname + ')'} </p>
-                    </div>
-                    <div className='profile-job'>
-                      <p className='mb-0'>{listNameCard.jobTitle}</p>
-                    </div>
-                  </div>
-                  <div className='vertical-line'>
-                  </div>
-                  <div className='profile-list-user '>
-                    <ul className='list-unstyled'>
-
-                      {/* <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li> */}
-                      <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
-                      <li><strong>Email</strong><span  className='text-decoration-none '>{listNameCard.mailingAddress}</span></li>
-                      <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
-                    </ul>
-                  </div>
+                <div className='profile-social'>
+                  <ul className='list-unstyled d-flex mb-0 justify-content-center'>
+                    <li><a href='#' className='text-white'><i className="fab fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href='#' className='text-white'><i className="fab fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href='#' className='text-white'><i className="fab fa-dribbble" aria-hidden="true"></i></a></li>
+                    <li><a href='#' className='text-white'><i className="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                    <li><a href='#' className='text-white'><i className="fab fa-instagram" aria-hidden="true"></i></a></li>
+                    <li><a href='#' className='text-white'><i className="fab fa-google-plus" aria-hidden="true"></i></a></li>
+                  </ul>
                 </div>
               </div>
-
-            </div>
-            <div className='profile-social'>
-              <ul className='list-unstyled d-flex mb-0 justify-content-center'>
-                <li><a href='#' className='text-white'><i className="fab fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i className="fab fa-facebook" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i className="fab fa-dribbble" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i className="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i className="fab fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href='#' className='text-white'><i className="fab fa-google-plus" aria-hidden="true"></i></a></li>
-              </ul>
-            </div>
-          </div>
-          <div className='section-contact mt-4'>
-            <div className='col-md-12'>
-              <div className='row'>
-                <div className='col-md-6'>
-                  <div className='section-box'>
-                    <h3 className='mb-4'>Thông tin liên hệ</h3>
-                    <ul className='list-unstyled list-contact'>
-                      <li className='mb-3'>
-                        <strong>Email</strong>
-                        <span className='text-decoration-none '>{listNameCard.mailingAddress}</span>
-                      </li>
-                      <li className='mb-3'>
-                        <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
-                      </li>
-
-
-                      <li className='mb-3'>
-                        <strong>Địa chỉ</strong>
-                        <span>{listNameCard.streetAddress}</span>
-                      </li>
-                      {/* <li className='mb-3'>
+              <div className='section-contact mt-4'>
+                <div className='col-md-12'>
+                  <div className='row'>
+                    <div className='col-md-6'>
+                      <div className='section-box'>
+                        <h3 className='mb-4'>Thông tin liên hệ</h3>
+                        <ul className='list-unstyled list-contact'>
+                          <li className='mb-3'>
+                            <strong>Email</strong>
+                            <span className='text-decoration-none'>{listNameCard.mailingAddress}</span>
+                          </li>
+                          <li className='mb-3'>
+                            <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null && (' - ' + listNameCard.phone2)}</span></li>
+                          </li>
+                          <li className='mb-3'>
+                            <strong>Địa chỉ</strong>
+                            <span>{listNameCard.streetAddress}</span>
+                          </li>
+                          {/* <li className='mb-3'>
                         <strong>Trực thuộc</strong>
                         <span>{listNameCard.company === 'hoplong' ? 'Hợp Long' : 'Giga Digital'}</span>
                       </li> */}
-                      {listNameCard.facebook !== null &&
-                        <li className='mb-3 mb-facebook'>
-                          <strong>Facebook</strong>
-                          <a href={listNameCard.facebook} className='text-decoration-none'>{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
-                        </li>}
-                    </ul>
+                          {listNameCard.facebook !== null &&
+                            <li className='mb-3 mb-facebook'>
+                              <strong>Facebook</strong>
+                              <a href={listNameCard.facebook} className='text-decoration-none'>{listNameCard.facebook && listNameCard.facebook.split('/').pop()}</a>
+                            </li>}
+                        </ul>
+                      </div>
+                    </div>
+                    <div className='col-md-6'>
+                      <div className='section-box'>
+                        <h3 className='mb-4'>Gửi ý kiến của bạn</h3>
+                        <form className='contact-form' onSubmit={handleSubmit}>
+                          <div className='input-form form-group'>
+                            <input className='form-control' value={name} type={'text'} name='name' placeholder='Name (*)' onChange={(e) => setName(e.target.value)} />
+
+                            {/* <label className={name && 'filled'} htmlFor='name'>Name (*)</label> */}
+                          </div>
+                          <div className='input-form form-group'>
+                            <input className='form-control' type={'text'} name='email' placeholder='Email (*)' required value={email} onChange={(e) => setEmail(e.target.value)}
+
+                            />
+
+                            {/* <label className={email && 'filled'} htmlFor='email'>Email (*)</label> */}
+                          </div>
+                          <div className='input-form form-group'>
+                            <input className='form-control' type={'text'} placeholder='Subject' name='subject' value={subject} onChange={(e) => setSubject(e.target.value)} />
+                            {/* <label className={subject && 'filled'}>Subject</label> */}
+                          </div>
+                          <div className='input-form form-group'>
+                            <textarea className='form-control' placeholder='Message (*)' type={'text'} name='message' required value={message} onChange={(e) => setMessage(e.target.value)} rows='3'
+
+                            ></textarea>
+                            {errors.message && <p className='text-danger'>Không để trống trường này</p>}
+                            {/* <label className={message && 'filled'}>Message (*)</label> */}
+                          </div>
+                          <div className='button text-center mt-3'>
+                            <div className='button text-center mt-3'>
+                              <button type='submit' className='btn btn-primary' onClick={handleSubmit}>Gửi</button>
+                            </div>
+                          </div>
+                        </form>
+                        {<ToastContainer />}
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-                <div className='col-md-6'>
-                  <div className='section-box'>
-                    <h3 className='mb-4'>Gửi ý kiến của bạn</h3>
-                    <form className='contact-form' onSubmit={handleSubmit}>
-                      <div className='input-form form-group'>
-                        <input className='form-control' value={name} type={'text'} name='name' placeholder='Name (*)' onChange={(e) => setName(e.target.value)}
-
-
-                        />
-
-                        {/* <label className={name && 'filled'} htmlFor='name'>Name (*)</label> */}
-                      </div>
-                      <div className='input-form form-group'>
-                        <input className='form-control' type={'text'} name='email' placeholder='Email (*)' required value={email} onChange={(e) => setEmail(e.target.value)}
-
-                        />
-
-                        {/* <label className={email && 'filled'} htmlFor='email'>Email (*)</label> */}
-                      </div>
-                      <div className='input-form form-group'>
-                        <input className='form-control' type={'text'} placeholder='Subject' name='subject' value={subject} onChange={(e) => setSubject(e.target.value)} />
-                        {/* <label className={subject && 'filled'}>Subject</label> */}
-                      </div>
-                      <div className='input-form form-group'>
-                        <textarea className='form-control' placeholder='Message (*)' type={'text'} name='message' required value={message} onChange={(e) => setMessage(e.target.value)} rows='3'
-
-                        ></textarea>
-                        {errors.message && <p className='text-danger'>Không để trống trường này</p>}
-                        {/* <label className={message && 'filled'}>Message (*)</label> */}
-                      </div>
-                      <div className='button text-center mt-3'>
-                        <div className='button text-center mt-3'>
-                          <button type='submit' className='btn btn-primary' onClick={handleSubmit}>Gửi</button>
-                        </div>
-                      </div>
-                    </form>
-                    {<ToastContainer />}
-                  </div>
-                </div>
-
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        </>
+      )}
+
     </div>
 
 
