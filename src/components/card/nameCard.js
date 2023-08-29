@@ -120,12 +120,13 @@ const CardName = () => {
                       </div>
                       <div className='vertical-line'>
                       </div>
+              
                       <div className='profile-list-user '>
                         <ul className='list-unstyled'>
                           {/* <li><strong>Tuổi</strong><span>{Math.floor(ageInYears)}</span></li> */}
                           <li><strong>Địa chỉ</strong><span>{listNameCard.streetAddress}</span></li>
                           <li><strong>Email</strong><span className='text-decoration-none '>{listNameCard.mailingAddress}</span></li>
-                          <li><strong>SĐT</strong><span>{listNameCard.phone1}  {listNameCard.phone2 != null || listNameCard.phone2 && listNameCard.phone2.length == 0 && (' - ' + listNameCard.phone2)}</span></li>
+                          <li><strong>SĐT</strong><span>{listNameCard.phone1}  { listNameCard.phone2 && listNameCard.phone2.length !== 0 && (' - ' + listNameCard.phone2)}</span></li>
                         </ul>
                       </div>
                     </div>
