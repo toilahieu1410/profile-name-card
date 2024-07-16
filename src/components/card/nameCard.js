@@ -8,7 +8,7 @@ import QRCode from 'react-qr-code'
 import { getNameCard, getNewBySlug } from '../../redux/nameCard/action'
 import FooterCard from '../footer';
 import LogoHopLong from '../../assets/img/logo-02.png'
-import LogoGiga from '../../assets/img/logo-01.png'
+import LogoGiga from '../../assets/img/logo-gigaVN.png'
 import { checkImage } from '../../utilities/checkImage'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -73,7 +73,7 @@ const CardName = () => {
               </div>
             </div>
             <div className='header-tab-bar w-100'>
-              <div className='col-md-12 text-center pt-3'>
+              <div className='col-md-12 text-center py-4'>
                 {listNameCard.company == 'hoplong' ? (
                   <div className='d-flex align-items-center justify-content-center'>
                     <img src={LogoHopLong} className='w-15 position-relative' style={{ maxWidth: 150 }} />
